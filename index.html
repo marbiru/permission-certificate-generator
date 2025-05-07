@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>>Permission Certificate Generator</title>
+  <script async defer data-domain="marbiru.com" src="https://plausible.io/js/plausible.js"></script>
+  <link rel="icon" type="image/png" href="permission-certificate-generator-favicon.png">
+
+  <!-- Open Graph for Facebook and general -->
+  <meta property="og:title" content="Permission Certificate Generator" />
+  <meta property="og:description" content="Generate a custom permission certificate instantly." />
+  <meta property="og:image" content="https://marbiru.github.io/certificate-generator/certificate-generator-share.jpg" />
+  <meta property="og:url" content="https://marbiru.github.io/certificate-generator/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Permission Certificate Generator" />
+  <meta name="twitter:description" content="Generate a custom permission certificate instantly." />
+  <meta name="twitter:image" content="https://marbiru.github.io/permission-certificate-generator/permission-certificate-generator-share.jpg" />
+
+<style>
+
+    #cert-name, #cert-thing {
+      font-family: fantasy;
+      font-size: 24px;
+    }
+    
+    body {
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #eaeaea;
+      color: #333;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 550px;
+      text-align: center;
+    }
+    .certificate {
+      background-color: #fff9c4;
+      margin-top: 30px;
+      padding: 40px;
+      border: 3px solid #333;
+      border-radius: 10px;
+      
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.8;
+      text-align: center;
+      background-size: cover;
+    }
+    .error-box {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #ffdddd;
+      border: 1px solid #ff5c5c;
+      color: #a00;
+      display: none;
+    }
+    .small {
+      font-size: 12px;
+      font-style: italic;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1><div style="font-family: 'Brush Script MT', cursive;">Permission Certificate Generator</div></h1>
+  <input type="text" id="name" placeholder="Enter Name" /><br><br>
+  <input type="text" id="thing" placeholder="Enter Thing to be Done" /><br><br>
+  <button onclick="generateCertificate()">Generate Permission Certificate</button>
+
+  <div class="error-box" id="error-box">
+    Error: No! No permission for that!
+  </div>
+
+  <div class="certificate" id="certificate" style="display: none;">
+    <div id="cert-name">[Name]</div>
+    <div>is hereby granted permission to</div>
+    <div id="cert-thing">[Thing]</div>
+<br />
+<div id="cert-date">[Date]</div>
+<hr style="width: 50%; margin: 5px auto; border: 1px solid #333;">
+<div style="display: flex; justify-content: space-between; width: 100%; gap: 20px;">
+  <div style="text-align: left; flex: 1;">
+  <div style="font-family: 'Brush Script MT', cursive;">Permission Certificate Generator</div>
+  <hr style="width: 80%; margin: 5px 0; border: 1px solid #333;">
+  <div>Signed</div>
+</div>
+  <div style="text-align: right; flex: 1;">Date</div>
+</div>
+    <br />
+    <br />
+    <span class="small">Thing is done at own risk. Permission Certificate Generator accepts no liability if Thing is a terrible idea. Permission to do Thing was inside you all along.</span>
+  </div>
+
+  <div class="footer">
+    Made by <a href="https://uribram.com" target="_blank">Uri Bram</a> on 2025-05-07. Vibe coded by <a href="https://openai.com/chatgpt" target="_blank">ChatGPT 4o</a>.
+    <br /> Results may be wrong and nothing has been tested, do not use this for anything important.
+  </div>
+
+<script>
+  function generateCertificate() {
+    const today = new Date().toLocaleDateString();
+    const name = document.getElementById('name').value;
+    const thing = document.getElementById('thing').value;
+    const errorBox = document.getElementById('error-box');
+    const prohibitedWords = ['kill', 'murder'];
+
+    if (prohibitedWords.some(word => thing.toLowerCase().includes(word))) {
+      errorBox.style.display = 'block';
+      document.getElementById('certificate').style.display = 'none';
+    } else {
+      errorBox.style.display = 'none';
+      document.getElementById('certificate').style.display = 'block';
+      document.getElementById('cert-name').innerText = name || "[Name]";
+      document.getElementById('cert-thing').innerText = thing || "[Thing]";
+      document.getElementById('cert-date').innerText = today;
+    }
+  }
+</script>
+
+</body>
+</html>
